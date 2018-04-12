@@ -1,10 +1,27 @@
 #!/bin/bash
 # MODE=$1;shift Ovo bi nam trebalo da saljeno recimo up ili down pa da na osnovu toga on nesto radi
+
+# clean the keystore
+rm -rf ./hfc-key-store
+
+# timeout duration - the duration the CLI should wait for a response from
+# another container before giving up
+CLI_TIMEOUT=10
+# default for delay between commands
+CLI_DELAY=3
+# channel name defaults to "mychannel"
 CHANNEL_NAME="mychannel"
+# use this as the default docker-compose yaml definition
 COMPOSE_FILE=docker-compose-cli.yaml
+#
 COMPOSE_FILE_COUCH=docker-compose-couch.yaml
-COMPOSE_FILE_CA=docker-compose-ca.yaml
+# use golang as the default language for chaincode
+LANGUAGE=node
+# default image tag
 IMAGETAG="latest"
+# 
+COMPOSE_FILE_CA=docker-compose-ca.yaml
+
 export FABRIC_CFG_PATH=$PWD
 
 # GENERATE CERTS
@@ -119,9 +136,7 @@ fi
 
 
 
-
-
-
+# Prodji kroz ova 3 fajla i postavi mrezu i kontejnere na docker-u
 IMAGE_TAG=$IMAGETAG docker-compose -f $COMPOSE_FILE -f $COMPOSE_FILE_COUCH -f $COMPOSE_FILE_CA up -d 2>&1
 # IMAGE_TAG=$IMAGETAG docker-compose -f $COMPOSE_FILE_CA up -d
 
@@ -129,9 +144,17 @@ if [ $? -ne 0 ]; then
 echo "ERROR !!!! Unable to start network"
 exit 1
 fi
-# # now run the end to end script
-# docker exec cli scripts/script.sh $CHANNEL_NAME $CLI_DELAY $LANGUAGE $CLI_TIMEOUT
-# if [ $? -ne 0 ]; then
-# echo "ERROR !!!! Test failed"
-# exit 1
-# fi
+
+
+# now run the end to end script
+docker exec cli scripts/script.sh $CHANNEL_NAME $CLI_DELAY $LANGUAGE $CLI_TIMEOUT
+if [ $? -ne 0 ]; then
+echo "ERROR !!!! Test failed"
+exit 1
+fi
+
+
+
+echo "#################################################################"
+echo "#######    FINISH   ##########"
+echo "#################################################################"

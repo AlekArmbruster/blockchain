@@ -1,5 +1,6 @@
 #!/bin/bash
 
+generateCerts
 
 function generateCerts (){
   which cryptogen
@@ -25,6 +26,3 @@ function generateCerts (){
   fi
   echo
 }
-
-
-generateCerts
