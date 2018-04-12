@@ -65,7 +65,10 @@ joinChannel () {
 
 ## Create channel
 echo "Creating channel..."
-createChannel
+# createChannel
+peer channel create -o orderer.example.com:7050 -c $CHANNEL_NAME -f ./channel-artifacts/channel.tx --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
+echo "Creating channel done"
+
 
 ## Join all the peers to the channel
 echo "Having all peers join the channel..."

@@ -19,7 +19,7 @@ services:
   #     - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
   #     - FABRIC_CA_SERVER_CA_NAME=ca.example.com
   #     - FABRIC_CA_SERVER_CA_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.org1.example.com-cert.pem
-  #     - FABRIC_CA_SERVER_CA_KEYFILE=/etc/hyperledger/fabric-ca-server-config/50d65ba79012e71182edf6dbdde4f3b5030d183b1e92c91e084bd5c6ef7973d6_sk
+  #     - FABRIC_CA_SERVER_CA_KEYFILE=/etc/hyperledger/fabric-ca-server-config/8eea1079dbeb2e69451383e2ab5a78c7948c6e36b1e85fe0e59f2b25c135ce91_sk
   #   ports:
   #     - "7054:7054"
   #   command: sh -c 'fabric-ca-server start -b admin:adminpw -d'
@@ -29,19 +29,19 @@ services:
   #   networks:
   #     - byfn
 
-  # ca0:
-  #   image: hyperledger/fabric-ca:$IMAGE_TAG
-  #   environment:
-  #     - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
-  #     - FABRIC_CA_SERVER_CA_NAME=ca-org1
-  #     - FABRIC_CA_SERVER_TLS_ENABLED=true
-  #     - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.org1.example.com-cert.pem
-  #     - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/50d65ba79012e71182edf6dbdde4f3b5030d183b1e92c91e084bd5c6ef7973d6_sk
-  #   ports:
-  #     - "7054:7054"
-  #   command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.org1.example.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/50d65ba79012e71182edf6dbdde4f3b5030d183b1e92c91e084bd5c6ef7973d6_sk -b admin:adminpw -d'
-  #   volumes:
-  #     - ./crypto-config/peerOrganizations/org1.example.com/ca/:/etc/hyperledger/fabric-ca-server-config
-  #   container_name: ca_peerOrg1
-  #   networks:
-  #     - byfn      
+  ca0:
+    image: hyperledger/fabric-ca:$IMAGE_TAG
+    environment:
+      - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
+      - FABRIC_CA_SERVER_CA_NAME=ca-org1
+      - FABRIC_CA_SERVER_TLS_ENABLED=true
+      - FABRIC_CA_SERVER_TLS_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.org1.example.com-cert.pem
+      - FABRIC_CA_SERVER_TLS_KEYFILE=/etc/hyperledger/fabric-ca-server-config/8eea1079dbeb2e69451383e2ab5a78c7948c6e36b1e85fe0e59f2b25c135ce91_sk
+    ports:
+      - "7054:7054"
+    command: sh -c 'fabric-ca-server start --ca.certfile /etc/hyperledger/fabric-ca-server-config/ca.org1.example.com-cert.pem --ca.keyfile /etc/hyperledger/fabric-ca-server-config/8eea1079dbeb2e69451383e2ab5a78c7948c6e36b1e85fe0e59f2b25c135ce91_sk -b admin:adminpw -d'
+    volumes:
+      - ./crypto-config/peerOrganizations/org1.example.com/ca/:/etc/hyperledger/fabric-ca-server-config
+    container_name: ca_peerOrg1
+    networks:
+      - byfn      
