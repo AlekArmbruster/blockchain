@@ -61,10 +61,13 @@ services:
     command: /bin/bash
     volumes:
         - /var/run/:/host/var/run/
-        - ./../chaincode/:/opt/gopath/src/github.com/
+        - ./chaincode/:/opt/gopath/src/github.com/
         - ./crypto-config:/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/
         - ./scripts:/opt/gopath/src/github.com/hyperledger/fabric/peer/scripts/
         - ./channel-artifacts:/opt/gopath/src/github.com/hyperledger/fabric/peer/channel-artifacts
+        # Ovo sam ja dodao u nadi da cu resiti problem sa putnjom prilikom prabljenja kanala
+        - ./crypto-config/peerOrganizations/org1.example.com/users/Admin@org1.example.com/mps:/etc/hyperledger/msp/users/Admin@org1.example.com/msp
+        - ./crypto-config/peerOrganizations/org1.example.com/users/Admin\@org1.example.com/msp/:/etc/hyperledger/msp/users/Admin@org1.example.com/msp
     depends_on:
       - orderer.example.com
       - peer0.org1.example.com
@@ -91,7 +94,7 @@ services:
       - FABRIC_CA_HOME=/etc/hyperledger/fabric-ca-server
       - FABRIC_CA_SERVER_CA_NAME=ca.example.com
       - FABRIC_CA_SERVER_CA_CERTFILE=/etc/hyperledger/fabric-ca-server-config/ca.org1.example.com-cert.pem
-      - FABRIC_CA_SERVER_CA_KEYFILE=/etc/hyperledger/fabric-ca-server-config/b2e7e02076e893af5c0bd7dd33cf1addbd41ac665851e732d260bbda094fd3d6_sk
+      - FABRIC_CA_SERVER_CA_KEYFILE=/etc/hyperledger/fabric-ca-server-config/4666cdaf71989e97d3467df494155df2b5957c42283603192062a93a99ebf151_sk
     ports:
       - "7054:7054"
     command: sh -c 'fabric-ca-server start -b admin:adminpw -d'

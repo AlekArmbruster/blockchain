@@ -29,6 +29,9 @@ services:
     - ../crypto-config/ordererOrganizations/example.com/orderers/orderer.example.com/msp:/var/hyperledger/orderer/msp
     - ../crypto-config/ordererOrganizations/example.com/orderers/orderer.example.com/tls/:/var/hyperledger/orderer/tls
     - orderer.example.com:/var/hyperledger/production/orderer
+    # Ova 3 reda ispod su dodata iz basic network
+    - ../crypto-config/ordererOrganizations/example.com/orderers/orderer.example.com/:/etc/hyperledger/msp/orderer
+    - ../crypto-config/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/:/etc/hyperledger/msp/peerOrg1
     ports:
       - 7050:7050
 
@@ -48,6 +51,10 @@ services:
         - ../crypto-config/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/msp:/etc/hyperledger/fabric/msp
         - ../crypto-config/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls:/etc/hyperledger/fabric/tls
         - peer0.org1.example.com:/var/hyperledger/production
+        # Dodato ovo ispod iz basic-network
+        - ../crypto-config/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/msp:/etc/hyperledger/msp/peer
+        - ../crypto-config/peerOrganizations/org1.example.com/users:/etc/hyperledger/msp/users
+        - ../channel-artifacts:/etc/hyperledger/configtx
     ports:
       - 7051:7051
       - 7053:7053
