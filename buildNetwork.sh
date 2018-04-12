@@ -137,7 +137,8 @@ fi
 
 
 # Prodji kroz ova 3 fajla i postavi mrezu i kontejnere na docker-u
-IMAGE_TAG=$IMAGETAG docker-compose -f $COMPOSE_FILE -f $COMPOSE_FILE_COUCH -f $COMPOSE_FILE_CA up -d 2>&1
+# IMAGE_TAG=$IMAGETAG docker-compose -f $COMPOSE_FILE -f $COMPOSE_FILE_COUCH -f $COMPOSE_FILE_CA up -d 2>&1
+IMAGE_TAG=$IMAGETAG docker-compose -f $COMPOSE_FILE -f $COMPOSE_FILE_COUCH up -d 2>&1
 # IMAGE_TAG=$IMAGETAG docker-compose -f $COMPOSE_FILE_CA up -d
 
 if [ $? -ne 0 ]; then
